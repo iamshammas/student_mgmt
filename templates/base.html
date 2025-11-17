@@ -1,147 +1,125 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Student management{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
+    <!-- bootstrap styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <title>{% block title%} BASE PAGE {% endblock %}</title>
-  </head>
-  <body>
-    <!-- NAV BAR BELOW -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#"
-            >Home <span class="sr-only">(current)</span></a
-          >
-          <a class="nav-item nav-link" href="#">Features</a>
-          <a class="nav-item nav-link" href="#">Pricing</a>
-          <a class="nav-item nav-link disabled" href="#">Disabled</a>
-        </div>
+    <!-- custom styles -->
+    <link rel="stylesheet" href="{% static 'student_management/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="{% url 'home' %}">ABC COLLEGE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'home' %}">Home</a>
+        </li>
+       {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'logout' %}">Logout</a></li>
+     {% else %}
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'login' %}">Login</a></li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'register' %}">Register</a></li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'profile' %}">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Messages -->
+<div class="container mt-2">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% block content %}
+<br><br>
+<div class="para">
+<p >ABC College of Arts and Science is a distinguished institution committed to fostering academic
+    excellence, creativity, and holistic growth. The college offers a diverse range of undergraduate
+    and postgraduate programs in arts, science, and commerce, designed to equip students with both 
+    theoretical knowledge and practical skills. With experienced faculty, well-equipped laboratories,
+    modern classrooms, and a resource-rich library, ABC College provides a stimulating environment 
+    for learning and research. The campus promotes extracurricular activities, cultural events, and 
+    sports to ensure the all-round development of students. Emphasizing ethical values, community
+    engagement, and career readiness, ABC College prepares students to excel in higher education, 
+    professional pursuits, and societal contribution, making it a vibrant hub of knowledge and opportunity.</p>
+    <hr>
+  </div>
+    {% endblock content %}
+
+<footer class="bg-dark text-white py-2 mt-auto">
+  <div class="container text-md-left">
+    <div class="row text-md-left">
+
+      <!-- About Section -->
+      <div class="col-md-3 col-lg-3 col-xl-5 mx-auto mt-2">
+        <h6 class="text-uppercase mb-2 fw-bold">ABC College</h6>
+        <p class="small mb-1">
+          ABC College of Arts and Science provides quality education and holistic development. Thanks for visiting!
+        </p>
       </div>
-    </nav>
 
-    <!-- <h1>Hello, world!</h1> -->
-    {% block content %} {% endblock %}
-
-    <!-- FOOTER BELOW -->
-    <footer class="fixed-bottom bg-body-tertiary text-center">
-      <!-- Grid container -->
-      <div class="container p-4 pb-0">
-        <!-- Section: Social media -->
-        <!-- <section class="mb-4">
-          Facebook
-          <a
-            data-mdb-ripple-init
-            class="btn text-white btn-floating m-1"
-            style="background-color: #3b5998"
-            href="#!"
-            role="button"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-
-          Twitter
-          <a
-            data-mdb-ripple-init
-            class="btn text-white btn-floating m-1"
-            style="background-color: #55acee"
-            href="#!"
-            role="button"
-            ><i class="fab fa-twitter"></i
-          ></a>
-
-          Google
-          <a
-            data-mdb-ripple-init
-            class="btn text-white btn-floating m-1"
-            style="background-color: #dd4b39"
-            href="#!"
-            role="button"
-            ><i class="fab fa-google"></i
-          ></a>
-
-          Instagram
-          <a
-            data-mdb-ripple-init
-            class="btn text-white btn-floating m-1"
-            style="background-color: #ac2bac"
-            href="#!"
-            role="button"
-            ><i class="fab fa-instagram"></i></a>
-
-          Linkedin
-          <a
-            data-mdb-ripple-init
-            class="btn text-white btn-floating m-1"
-            style="background-color: #0082ca"
-            href="#!"
-            role="button"
-            ><i class="fab fa-linkedin-in"></i
-          ></a>
-          Github
-          <a
-            data-mdb-ripple-init
-            class="btn text-white btn-floating m-1"
-            style="background-color: #333333"
-            href="#!"
-            role="button"
-            ><i class="fab fa-github"></i
-          ></a>
-        </section> -->
-        <!-- Section: Social media -->
+      <!-- Quick Links -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-2">
+        <h6 class="text-uppercase mb-2 fw-bold">Quick Links</h6>
+        <p class="small mb-2"><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></p>
+        <p class="small mb-2"><a href="{% url 'home' %}" class="text-white text-decoration-none">About Us</a></p>
+        <p class="small mb-2"><a href="{% url 'register' %}" class="text-white text-decoration-none">Register</a></p>
       </div>
-      <!-- Grid container -->
 
-      <!-- Copyright -->
-      <div
-        class="text-center p-3"
-        style="background-color: rgba(0, 0, 0, 0.05)"
-      >
-        © 2020 Copyright:
-        <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      <!-- Contact Info -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-2">
+        <h6 class="text-uppercase mb-2 fw-bold">Contact</h6>
+        <p class="small mb-2"><i class="bi bi-geo-alt-fill me-1"></i>123 College Road, City</p>
+        <p class="small mb-2"><i class="bi bi-envelope-fill me-1"></i>info@abccollege.edu</p>
+        <p class="small mb-2"><i class="bi bi-telephone-fill me-1"></i>+91 12345 67890</p>
       </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+
+    </div>
+
+    <hr class="my-1" style="border-top: 1px solid rgba(255,255,255,0.3)">
+
+    <div class="row align-items-center">
+      <div class="col-md-7 col-lg-8">
+        <p class="small mb-0">© 2025 ADWAIDH. All Rights Reserved.</p>
+      </div>
+      <div class="col-md-5 col-lg-4">
+        <p class="small mb-0">Designed  by ADWAIDH</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- bootstrap link-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>
