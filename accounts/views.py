@@ -13,7 +13,7 @@ def home(request):
     return HttpResponse('HELLO WORK')
 
 def user_register(request):
-    return HttpResponse('HELLO WORK')
+    return render(request,'user_register.html')
 
 def profile(request):
     return HttpResponse('HELLO WORK')
