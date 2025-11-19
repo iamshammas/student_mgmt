@@ -1,9 +1,17 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
+from django.contrib.auth import login,authenticate,logout
 
 # Create your views here.
 
 def index(request):
+    if request.method == 'POST':
+        uname = request.POST.get('username')
+        pswd = request.POST.get('password')
+        userr = authenticate(request,username = uname,password =pswd)
+        print(userr)
+        return redirect('home')
     return render(request,'base.html')
 
 def user_login(request):
@@ -13,6 +21,12 @@ def home(request):
     return HttpResponse('HELLO WORK')
 
 def user_register(request):
+    if request.method == 'POST':
+        uname = request.POST.get('username')
+        em = request.POST.get('email')
+        pswd = request.POST.get('password1')
+        User.objects.create_user(username=uname,email=em,password=pswd)
+        return redirect('home')
     return render(request,'user_register.html')
 
 def profile(request):
