@@ -30,15 +30,15 @@
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'home' %}">Home</a>
         </li>
-       {% if user.is_authenticated %}
+       <!--  if user.is_authenticated  -->
       <li class="nav-item">
         <a class="nav-link active" href="{% url 'logout' %}">Logout</a></li>
-     {% else %}
+     <!--  else  -->
       <li class="nav-item">
-        <a class="nav-link active" href="{% url 'login' %}">Login</a></li>
+        <a class="nav-link active" href="{% url 'user_login' %}">Login</a></li>
       <li class="nav-item">
-        <a class="nav-link active" href="{% url 'register' %}">Register</a></li>
-        {% endif %}
+        <a class="nav-link active" href="{% url 'user_register' %}">Register</a></li>
+        <!--  endif  -->
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'profile' %}">Profile</a>
         </li>
@@ -91,8 +91,8 @@
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-2">
         <h6 class="text-uppercase mb-2 fw-bold">Quick Links</h6>
         <p class="small mb-2"><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></p>
-        <p class="small mb-2"><a href="{% url 'home' %}" class="text-white text-decoration-none">About Us</a></p>
-        <p class="small mb-2"><a href="{% url 'register' %}" class="text-white text-decoration-none">Register</a></p>
+        <p class="small mb-2"><a href="{% url 'home' %}" class="text-white text-d ecoration-none">About Us</a></p>
+        <p class="small mb-2"><a href="{% url 'user_register' %}" class="text-white text-decoration-none">Register</a></p>
       </div>
 
       <!-- Contact Info -->
