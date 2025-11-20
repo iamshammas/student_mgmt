@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate,logout
+from .models import Profile
 
 # Create your views here.
 
@@ -13,8 +14,11 @@ def user_login(request):
         uname = request.POST.get('username')
         pswd = request.POST.get('password')
         userr = authenticate(request,username = uname,password =pswd)
-        login(request,userr)
-        return redirect('home')
+        if userr is not None:
+            login(request,userr)
+            if userr.is_superuser:
+                return redirect('/admin/')
+            return redirect('home')
     return render(request,'user_login.html')
 
 def home(request):
@@ -25,7 +29,11 @@ def user_register(request):
         uname = request.POST.get('username')
         em = request.POST.get('email')
         pswd = request.POST.get('password1')
-        User.objects.create_user(username=uname,email=em,password=pswd)
+        roll_no = request.POST.get('roll_no')
+        dept = request.POST.get('dept') 
+        admission_year = request.POST.get('admission_year')
+        user = User.objects.create_user(username=uname,email=em,password=pswd)
+        Profile.objects.create(roll_no=roll_no,dept=dept,admission_year=admission_year,user=user)
         return redirect('home')
     return render(request,'user_register.html')
 
