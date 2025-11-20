@@ -6,15 +6,15 @@ from django.contrib.auth import login,authenticate,logout
 # Create your views here.
 
 def index(request):
+    return render(request,'base.html')
+
+def user_login(request):
     if request.method == 'POST':
         uname = request.POST.get('username')
         pswd = request.POST.get('password')
         userr = authenticate(request,username = uname,password =pswd)
-        print(userr)
+        login(request,userr)
         return redirect('home')
-    return render(request,'base.html')
-
-def user_login(request):
     return render(request,'user_login.html')
 
 def home(request):
@@ -37,3 +37,6 @@ def logout(request):
 
 def password_reset(request):
     return HttpResponse('HELLO WORK')
+
+def red(request):
+    return redirect('user_login')
