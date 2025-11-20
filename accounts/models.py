@@ -18,3 +18,15 @@ class Profile(models.Model):
     roll_no = models.IntegerField()
     dept = models.CharField(max_length=200)
     admission_year = models.IntegerField()
+
+    def __str__(self):
+        return self.user.username
+    
+class Student(models.Model):
+    name = models.CharField(max_length=100,null=True)
+    # roll_no = models.TextField()
+    # email = models.ManyToManyField(())
+    # dept = 'gfg'
+    # admission_year = 'giyg'
+    dob = models.DateField()
+    profile_pic = models.ImageField(upload_to='images/')

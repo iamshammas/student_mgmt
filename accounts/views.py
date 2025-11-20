@@ -3,12 +3,15 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate,logout
 from .models import Profile
+from django.contrib import messages
 
 # Create your views here.
 
 def index(request):
     return render(request,'base.html')
 
+def admin_panel(request):
+    return render(request,'admin_panel.html')
 def user_login(request):
     if request.method == 'POST':
         uname = request.POST.get('username')
@@ -16,9 +19,15 @@ def user_login(request):
         userr = authenticate(request,username = uname,password =pswd)
         if userr is not None:
             login(request,userr)
+            messages.success(request,'Logging Successfull')
             if userr.is_superuser:
-                return redirect('/admin/')
-            return redirect('home')
+                # return redirect('/admin/')
+                return redirect('admin_panel')
+            else:
+                return redirect('home')
+        else:
+            messages.error(request,'Wrong Credentials')
+            return redirect('user_login')
     return render(request,'user_login.html')
 
 def home(request):

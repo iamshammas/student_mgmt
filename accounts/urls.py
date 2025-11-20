@@ -9,4 +9,6 @@ urlpatterns = [
     path('profile/',views.profile,name='profile'),
     path('logout/',views.logout,name='logout'),
     path('password_reset/',views.password_reset,name='password_reset'),
+    path('admin_panel/',views.admin_panel,name='admin_panel'),
+
 ]
