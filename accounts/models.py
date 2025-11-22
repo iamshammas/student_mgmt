@@ -9,24 +9,16 @@ from django.contrib.auth.models import User
 # year of admission
 
 
-class Profile(models.Model):
-    class Role(models.TextChoices):
-        ADMIN = 'ADMIN', 'Admin'
-        STUDENT = 'STUDENT', 'Student'
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=50, choices=Role.choices, default=Role.STUDENT)
-    roll_no = models.IntegerField()
-    dept = models.CharField(max_length=200)
-    admission_year = models.IntegerField()
+# class Profile(models.Model):
+#     class Role(models.TextChoices):
+#         ADMIN = 'ADMIN', 'Admin'
+#         STUDENT = 'STUDENT', 'Student'
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     role = models.CharField(max_length=50, choices=Role.choices, default=Role.STUDENT)
+#     roll_no = models.IntegerField()
+#     dept = models.CharField(max_length=200)
+#     admission_year = models.IntegerField()
 
-    def __str__(self):
-        return self.user.username
+#     def __str__(self):
+#         return self.user.username
     
-class Student(models.Model):
-    name = models.CharField(max_length=100,null=True)
-    # roll_no = models.TextField()
-    # email = models.ManyToManyField(())
-    # dept = 'gfg'
-    # admission_year = 'giyg'
-    dob = models.DateField()
-    profile_pic = models.ImageField(upload_to='images/')
